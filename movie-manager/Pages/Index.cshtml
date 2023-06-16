@@ -1,0 +1,70 @@
+﻿@page "{id:int?}"
+@model movie_manager.Pages.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="notes-h1">Notes</h1>
+
+<form>
+    <p>
+        Search: <select asp-for="MovieRating" asp-items="Model.Ratings">
+            <option value="">All</option>
+        </select>
+         Keyword: <input type="text" asp-for="SearchString" />
+         </p>
+         <p>
+        Sort:
+        <select asp-for="SortColumn">
+            <option value="">Book</option>
+            <option value="Date">Date</option>
+        </select>
+        </p>
+        <p>
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<table class="table deskquotes-table">
+    <thead class="deskquotes-table__head">
+        <tr>
+            <th class="deskquotes-table__th deskquotes-table__date">
+                @Html.DisplayNameFor(model => model.Movie[0].ReleaseDate)
+            </th>
+            <th class="deskquotes-table__th">
+                @Html.DisplayNameFor(model => model.Movie[0].Genre)
+            </th>
+            <th class="deskquotes-table__th">
+                @Html.DisplayNameFor(model => model.Movie[0].Rating)
+            </th>
+            <th class="deskquotes-table__th">
+                @Html.DisplayNameFor(model => model.Movie[0].Title)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody class="deskquotes-table__body">
+@foreach (var item in Model.Movie) {
+        <tr class="deskquotes-table__tr">
+            <td class="deskquotes-table__td deskquotes-table__date">
+                @Html.DisplayFor(modelItem => item.ReleaseDate)
+            </td>
+            <td class="deskquotes-table__td">
+                @Html.DisplayFor(modelItem => item.Genre)
+            </td>
+            <td class="deskquotes-table__td">
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+            <td class="deskquotes-table__td">
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
